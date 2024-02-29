@@ -1,28 +1,97 @@
 using Microsoft.AspNetCore.Mvc;
-using BankAPI.Data;
+using BankAPI.Services;
 using BankAPI.Data.BankModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BankAPI.Controllers;
 
+[Authorize]
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class ClientController : ControllerBase
 {
-    private readonly BankContext _context;
-    public ClientController(BankContext context)
+    private readonly ClientService _service;
+    public ClientController(ClientService service)
     {
-        _context = context;
+        _service = service;
     }
 
-    [HttpGet("{id}")]
-    public ActionResult<Client> GetById(int id)
+    [HttpGet("getall")]
+    public async Task<IEnumerable<Client>> Get()
     {
-        var client = _context.Clients.Find(id);
+        return await _service.GetAll();
+    }
 
-        if (client is null)
+    
+
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Client>> GetById(int id)
+    {
+        var client =  await _service.GetById(id);
+        if (client == null)
         {
-            return NotFound();
+            return ClientNotFound(id);
         }
         return client;
     }
+
+    [Authorize(Policy = "SuperAdmin")]
+    [HttpPost("create")]
+    public async Task<IActionResult> Create(Client client)
+    {
+        var newClient = await _service.Create(client);
+
+        return CreatedAtAction(nameof(GetById), new { id = newClient.Id }, newClient);
+    }
+
+    [Authorize(Policy = "SuperAdmin")]
+    [HttpPut("update/{id}")]
+
+    public async Task<IActionResult> Update(int id, Client client)
+    {
+        if (id != client.Id)
+        {
+            return BadRequest(new {messages=$"El ID ({id}) de la URL no coincide con el ({client.Id}) del cuerpo de la solicitud."});
+        }
+       
+       var clientToUpdate =await _service.GetById(id);
+
+       if(clientToUpdate is not null)
+       {
+           await _service.Update(id,client);
+           return NoContent();
+       }
+         else
+         {
+              return ClientNotFound(id);
+         }
+
+        
+    }
+
+     [Authorize(Policy = "SuperAdmin")]
+    [HttpDelete("delete/{id}")]
+
+    public async Task<IActionResult> Delete(int id)
+    {
+        var clientToDelete = await _service.GetById(id);
+
+       if(clientToDelete is not null)
+       {
+           await _service.Delete(id);
+           return Ok();
+       }
+         else
+         {
+              return ClientNotFound(id);
+         }
+    }
+
+
+    public NotFoundObjectResult ClientNotFound(int id)
+    {
+        return NotFound(new {messages=$"El cliente con ID= {id} no existe."});
+    }
+
 }

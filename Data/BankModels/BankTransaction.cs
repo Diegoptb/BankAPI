@@ -10,7 +10,7 @@ namespace BankAPI.Data.BankModels
         public int TransactionType { get; set; }
         public decimal Amount { get; set; }
         public int? ExternalAccount { get; set; }
-        public DateTime RegDate { get; set; }
+        public DateTime RegData { get; set; }
 
         public virtual Account Account { get; set; } = null!;
         public virtual TransactionType TransactionTypeNavigation { get; set; } = null!;

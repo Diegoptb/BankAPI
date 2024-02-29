@@ -14,7 +14,7 @@ namespace BankAPI.Data.BankModels
         public int AccountType { get; set; }
         public int? ClientId { get; set; }
         public decimal Balance { get; set; }
-        public DateTime RegDate { get; set; }
+        public DateTime RegData { get; set; }
 
         public virtual AccountType AccountTypeNavigation { get; set; } = null!;
         public virtual Client? Client { get; set; }

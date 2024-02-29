@@ -24,7 +24,7 @@ namespace BankAPI.Data
         public virtual DbSet<Client> Clients { get; set; } = null!;
         public virtual DbSet<TransactionType> TransactionTypes { get; set; } = null!;
 
-        
+      
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,11 +34,13 @@ namespace BankAPI.Data
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Balance).HasColumnType("decimal(10, 2)");
+                entity.Property(e => e.Balance)
+                    .HasColumnType("decimal(10, 2)")
+                    .HasColumnName("BALANCE");
 
                 entity.Property(e => e.ClientId).HasColumnName("ClientID");
 
-                entity.Property(e => e.RegDate)
+                entity.Property(e => e.RegData)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
 
@@ -46,12 +48,12 @@ namespace BankAPI.Data
                     .WithMany(p => p.Accounts)
                     .HasForeignKey(d => d.AccountType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Account__Account__440B1D61");
+                    .HasConstraintName("FK__Account__Account__6383C8BA");
 
                 entity.HasOne(d => d.Client)
                     .WithMany(p => p.Accounts)
                     .HasForeignKey(d => d.ClientId)
-                    .HasConstraintName("FK__Account__ClientI__44FF419A");
+                    .HasConstraintName("FK__Account__ClientI__6477ECF3");
             });
 
             modelBuilder.Entity<AccountType>(entity =>
@@ -95,7 +97,7 @@ namespace BankAPI.Data
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.RegDate)
+                entity.Property(e => e.RegData)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
             });
@@ -110,7 +112,7 @@ namespace BankAPI.Data
 
                 entity.Property(e => e.Amount).HasColumnType("decimal(10, 2)");
 
-                entity.Property(e => e.RegDate)
+                entity.Property(e => e.RegData)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
 
@@ -118,13 +120,13 @@ namespace BankAPI.Data
                     .WithMany(p => p.BankTransactions)
                     .HasForeignKey(d => d.AccountId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BankTrans__Accou__45F365D3");
+                    .HasConstraintName("FK__BankTrans__Accou__68487DD7");
 
                 entity.HasOne(d => d.TransactionTypeNavigation)
                     .WithMany(p => p.BankTransactions)
                     .HasForeignKey(d => d.TransactionType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BankTrans__Trans__46E78A0C");
+                    .HasConstraintName("FK__BankTrans__Trans__693CA210");
             });
 
             modelBuilder.Entity<Client>(entity =>

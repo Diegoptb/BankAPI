@@ -1,30 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Users\\Diego\\Trabajo\\BankSolution\\BankAPI\\BankAPI.csproj": {}
+    "D:\\Users\\Diego\\Trabajo\\BankAPI\\BankAPI.csproj": {}
   },
   "projects": {
-    "D:\\Users\\Diego\\Trabajo\\BankSolution\\BankAPI\\BankAPI.csproj": {
+    "D:\\Users\\Diego\\Trabajo\\BankAPI\\BankAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\Diego\\Trabajo\\BankSolution\\BankAPI\\BankAPI.csproj",
+        "projectUniqueName": "D:\\Users\\Diego\\Trabajo\\BankAPI\\BankAPI.csproj",
         "projectName": "BankAPI",
-        "projectPath": "D:\\Users\\Diego\\Trabajo\\BankSolution\\BankAPI\\BankAPI.csproj",
+        "projectPath": "D:\\Users\\Diego\\Trabajo\\BankAPI\\BankAPI.csproj",
         "packagesPath": "C:\\Users\\98675\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\Diego\\Trabajo\\BankSolution\\BankAPI\\obj\\",
+        "outputPath": "D:\\Users\\Diego\\Trabajo\\BankAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\98675\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net6.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -35,12 +35,12 @@
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
-            "Microsoft.AspNetCore.OpenApi": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[7.0.16, )"
+              "version": "[6.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

@@ -11,6 +11,6 @@ namespace BankAPI.Data.BankModels
         public string Email { get; set; } = null!;
         public string Pwd { get; set; } = null!;
         public string AdminType { get; set; } = null!;
-        public DateTime RegDate { get; set; }
+        public DateTime RegData { get; set; }
     }
 }
